@@ -11,14 +11,16 @@
    ProducerConfig/KEY_SERIALIZER_CLASS_CONFIG (.getName StringSerializer)
    ProducerConfig/VALUE_SERIALIZER_CLASS_CONFIG (.getName StringSerializer)})
 
-(defn send! [topic]
-  (let [kafka-producer (new KafkaProducer properties)
+(defn send!
+  "this returns a future"
+  [topic value]
+  (let [producer (new KafkaProducer properties)
         key (str (UUID/randomUUID))
-        value "value"
         record (new ProducerRecord topic key value)]
-    (.send kafka-producer record)))
+    (.send producer record)))
 
-(defn create-topic! [topic partitions replication config]
+(defn create-topic!
+  [topic partitions replication config]
   (let [client (AdminClient/create config)]
     (try
       (.createTopics client [(NewTopic. topic partitions replication)])
