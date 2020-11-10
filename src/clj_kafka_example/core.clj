@@ -1,7 +1,8 @@
 (ns clj-kafka-example.core
+  (:require [clj-kafka-example.producer])
   (:gen-class))
 
 (defn -main
-  "I don't do a whole lot ... yet."
   [& args]
+  (clj-kafka-example.producer/create-topic-if-not-exist "topic")
   (println "Hello, World!"))
