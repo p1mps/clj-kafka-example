@@ -8,4 +8,4 @@
   (when (some #{"consumer"} args)
     (consumer/poll! (second args)))
   (when (some #{"producer"} args)
-    (println @(producer/send! (second args) "value"))))
+    @(producer/send! (second args) (nth args 2 "value"))))
