@@ -11,11 +11,12 @@
    ProducerConfig/KEY_SERIALIZER_CLASS_CONFIG (.getName StringSerializer)
    ProducerConfig/VALUE_SERIALIZER_CLASS_CONFIG (.getName StringSerializer)})
 
+(def producer (new KafkaProducer properties))
+
 (defn send!
   "this returns a future"
   [topic value]
-  (let [producer (new KafkaProducer properties)
-        key (str (UUID/randomUUID))
+  (let [key (str (UUID/randomUUID))
         record (new ProducerRecord topic key value)]
     (.send producer record)))
 
